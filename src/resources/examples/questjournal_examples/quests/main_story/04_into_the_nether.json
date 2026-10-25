@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "examples:into_the_nether",
+  "title": "Into the Nether",
+  "short_description": "Step through a portal.",
+  "description": "Build a portal and enter the Nether. The objective completes the moment you arrive.",
+  "category": "main_story",
+  "icon": "minecraft:obsidian",
+  "acceptance": "manual",
+  "prerequisites": ["examples:iron_age"],
+  "sort_order": 4,
+  "objectives": [
+    { "id": "nether", "type": "visit_dimension", "target": "minecraft:the_nether", "description": "Enter the Nether" }
+  ],
+  "rewards": [ { "id": "xp", "type": "experience", "amount": 5, "unit": "levels" } ]
+}

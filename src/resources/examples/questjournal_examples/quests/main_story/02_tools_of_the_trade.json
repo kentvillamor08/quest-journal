@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "examples:tools_of_the_trade",
+  "title": "Tools of the Trade",
+  "short_description": "Craft a pickaxe and gather stone.",
+  "description": "Wood alone will not carry you far. Craft a wooden pickaxe, mine some stone and keep the cobblestone.",
+  "category": "main_story",
+  "icon": "minecraft:wooden_pickaxe",
+  "acceptance": "manual",           // appears under Available; the player must accept it
+  "prerequisites": ["examples:first_steps"],
+  "objective_mode": "sequential",   // objectives are revealed one after another
+  "abandon": "reset_progress",      // abandoning asks for confirmation and resets progress
+  "sort_order": 2,
+  "objectives": [
+    { "id": "craft", "type": "obtain_item", "target": "minecraft:wooden_pickaxe", "count": 1, "description": "Craft a wooden pickaxe" },
+    { "id": "mine", "type": "break_block", "target": "minecraft:stone", "count": 8, "description": "Mine 8 stone" },
+    { "id": "keep", "type": "have_item", "target": "minecraft:cobblestone", "count": 8, "description": "Carry 8 cobblestone" }
+  ],
+  "rewards": [
+    { "id": "pick", "type": "item", "item": "minecraft:stone_pickaxe", "count": 1 },
+    { "id": "xp", "type": "experience", "amount": 1, "unit": "levels" }
+  ],
+  "dialogues": [
+    { "id": "briefing", "title": "Briefing", "gate": "accept",   // must be read before the quest can be accepted
+      "lines": [ { "speaker": "Guide", "text": "Mining is hard work, but the stone will make you strong. Read this, then accept the task." } ] }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "examples:iron_age",
+  "title": "The Iron Age",
+  "short_description": "Smelt iron and hand over coal.",
+  "description": "Iron changes everything. Smelt three ingots, then deliver four pieces of coal to fuel the forge. Deliveries are made with the Submit button in the journal.",
+  "category": "main_story",
+  "icon": "minecraft:iron_ingot",
+  "acceptance": "manual",
+  "prerequisites": ["examples:tools_of_the_trade"],
+  "sort_order": 3,
+  "objectives": [
+    { "id": "ingots", "type": "have_item", "target": "minecraft:iron_ingot", "count": 3, "description": "Have 3 iron ingots in your inventory" },
+    { "id": "coal", "type": "deliver_item", "target": "minecraft:coal", "count": 4, "description": "Deliver 4 coal (use Submit items)" }
+  ],
+  "rewards": [
+    { "id": "pick", "type": "item", "item": "minecraft:iron_pickaxe", "count": 1 },
+    { "id": "gold", "type": "item", "item": "minecraft:golden_apple", "count": 1 }
+  ]
+}

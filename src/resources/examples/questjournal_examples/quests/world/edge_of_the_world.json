@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "examples:edge_of_the_world",
+  "title": "The Edge of the World",
+  "short_description": "Reach the End.",
+  "description": "Beyond the portal frames lies the End. Prepare well.",
+  "category": "world_quests",
+  "icon": "minecraft:ender_eye",
+  "acceptance": "manual",
+  "prerequisites": ["examples:into_the_nether"],
+  "visibility": "when_available",    // hidden from the journal until the Nether quest is done
+  "objectives": [
+    { "id": "end", "type": "visit_dimension", "target": "minecraft:the_end", "description": "Enter the End" }
+  ],
+  "rewards": [ { "id": "pearls", "type": "item", "item": "minecraft:ender_pearl", "count": 4 } ]
+}

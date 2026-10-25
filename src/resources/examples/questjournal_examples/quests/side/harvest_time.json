@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "examples:harvest_time",
+  "title": "Harvest Time",
+  "short_description": "Cut down ten wheat plants.",
+  "description": "The villagers are hungry. Harvest wheat and keep the fields tidy.",
+  "category": "side_quests",
+  "icon": "minecraft:wheat",
+  "acceptance": "manual",
+  "abandon": "preserve_progress",   // progress is kept if you abandon and accept again
+  "objectives": [
+    { "id": "wheat", "type": "break_block", "target": "minecraft:wheat", "count": 10, "description": "Harvest 10 wheat plants" }
+  ],
+  "rewards": [ { "id": "hay", "type": "item", "item": "minecraft:hay_block", "count": 2 } ]
+}

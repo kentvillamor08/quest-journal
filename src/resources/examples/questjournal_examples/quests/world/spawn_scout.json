@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "examples:spawn_scout",
+  "title": "Scout the Land",
+  "short_description": "Travel near the world origin.",
+  "description": "Walk to within 100 blocks of the world's centre (0, 64, 0). There is no map marker: the destination is described here in words.",
+  "category": "world_quests",
+  "icon": "minecraft:compass",
+  "acceptance": "auto",
+  "objectives": [
+    { "id": "reach", "type": "visit_location", "target": "minecraft:overworld", "x": 0, "y": 64, "z": 0, "radius": 100,
+      "description": "Get within 100 blocks of 0, 64, 0 in the Overworld" }
+  ],
+  "rewards": [ { "id": "compass", "type": "item", "item": "minecraft:compass", "count": 1 } ]
+}

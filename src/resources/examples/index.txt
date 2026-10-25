@@ -1,0 +1,11 @@
+pack.json
+quests/boss/dragon_slayer.json
+quests/boss/wither_hunter.json
+quests/main_story/01_first_steps.json
+quests/main_story/02_tools_of_the_trade.json
+quests/main_story/03_iron_age.json
+quests/main_story/04_into_the_nether.json
+quests/side/harvest_time.json
+quests/side/lever_puller.json
+quests/world/edge_of_the_world.json
+quests/world/spawn_scout.json

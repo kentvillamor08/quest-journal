@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "examples:dragon_slayer",
+  "title": "Dragon Slayer",
+  "short_description": "Defeat the Ender Dragon.",
+  "description": "The final test. Bring everything you have learned.",
+  "category": "boss_quests",
+  "icon": "minecraft:dragon_head",
+  "acceptance": "manual",
+  "prerequisites": ["examples:edge_of_the_world", "examples:wither_hunter"],   // both must be completed
+  "prerequisite_mode": "all",
+  "objectives": [
+    { "id": "dragon", "type": "kill_entity", "target": "minecraft:ender_dragon", "count": 1, "description": "Defeat the Ender Dragon" }
+  ],
+  "rewards": [
+    { "id": "elytra", "type": "item", "item": "minecraft:elytra", "count": 1 },
+    { "id": "xp", "type": "experience", "amount": 30, "unit": "levels" }
+  ],
+  "dialogues": [
+    { "id": "victory", "title": "Victory", "gate": "claim",   // must be read before the reward can be claimed
+      "lines": [ { "speaker": "Guide", "text": "You did it. The journal will remember." } ] }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "questjournal_examples",
+  "name": "Quest Journal - Vanilla Examples",
+  "version": "1.0.0",
+  "description": "Working example quests that use only vanilla registry ids. Copy and adapt them. Delete this folder when you no longer need it.",
+  "authors": ["Quest Journal"]
+}

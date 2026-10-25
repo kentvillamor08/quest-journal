@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "examples:wither_hunter",
+  "title": "Wither Hunter",
+  "short_description": "Defeat the Wither.",
+  "description": "A three-headed terror drifts through the dark. End it.",
+  "category": "boss_quests",
+  "icon": "minecraft:nether_star",
+  "acceptance": "manual",
+  "prerequisites": ["examples:into_the_nether"],
+  "abandon": "disabled",              // cannot be abandoned once started
+  "objectives": [
+    { "id": "wither", "type": "kill_entity", "target": "minecraft:wither", "count": 1, "description": "Defeat the Wither" }
+  ],
+  "rewards": [
+    { "id": "star", "type": "item", "item": "minecraft:nether_star", "count": 1 },
+    { "id": "xp", "type": "experience", "amount": 10, "unit": "levels" }
+  ]
+}

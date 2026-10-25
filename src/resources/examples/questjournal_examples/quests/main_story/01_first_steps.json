@@ -1,0 +1,32 @@
+// Comments like this are allowed in quest files (the in-game editor does not keep them when it re-saves a file).
+{
+  "schema_version": 1,
+  "id": "examples:first_steps",
+  "title": "First Steps",
+  "short_description": "Gather your first wood.",
+  "description": "Every legend begins with a humble task. Collect a few logs from the nearest trees; you will need them for everything that follows.",
+  "category": "main_story",
+  "icon": "minecraft:oak_log",
+  "acceptance": "auto",              // starts by itself, no Accept click needed
+  "sort_order": 1,
+  "objectives": [
+    { "id": "logs", "type": "obtain_item", "target": "minecraft:oak_log", "count": 4,
+      "description": "Pick up or chop 4 oak logs" }
+  ],
+  "rewards": [
+    { "id": "bread", "type": "item", "item": "minecraft:bread", "count": 5 },
+    { "id": "xp", "type": "experience", "amount": 20, "unit": "points" }
+  ],
+  "lore": [
+    { "title": "The Journal", "text": "This journal records your deeds. Open it with the J key whenever you want to review your quests.", "icon": "minecraft:book" },
+    { "title": "Rewards", "text": "When every objective is finished the quest becomes ready to claim. Press Claim Reward in the journal to receive your reward." }
+  ],
+  "dialogues": [
+    { "id": "guide", "title": "A Friendly Guide", "gate": "none",
+      "lines": [
+        { "speaker": "Guide", "text": "Welcome, traveller. Shall I explain how quests work?",
+          "choices": [ { "text": "Yes, please.", "next": 1 }, { "text": "I will figure it out.", "next": -1 } ] },
+        { "speaker": "Guide", "text": "Accept quests in the journal, finish their objectives, then claim the reward. Some quests start automatically, like this one." }
+      ] }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "examples:lever_puller",
+  "title": "Lever Puller",
+  "short_description": "Flip a lever three times.",
+  "description": "Some doors only open for those who pull the right lever. Practice makes perfect.",
+  "category": "side_quests",
+  "icon": "minecraft:lever",
+  "acceptance": "auto",
+  "objectives": [
+    { "id": "pull", "type": "interact_block", "target": "minecraft:lever", "count": 3, "description": "Use a lever 3 times" }
+  ],
+  "rewards": [ { "id": "xp", "type": "experience", "amount": 30, "unit": "points" } ]
+}
