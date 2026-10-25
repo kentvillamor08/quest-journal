@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "command_reward_example",
+  "name": "Command reward example",
+  "version": "1.0.0",
+  "description": "A quest with a server command reward. It does NOTHING until an operator (1) sets commandRewards.enabled=true in config/questjournal-common.toml and (2) runs /questjournal approve examples_cmd:starter_kit.",
+  "authors": ["Quest Journal"]
+}

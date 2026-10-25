@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "modded_content_example",
+  "name": "Modded content example (placeholder namespaces)",
+  "version": "1.0.0",
+  "description": "Shows how to reference items, entities, blocks and dimensions of other mods. The namespaces exampleguns, examplealiens and superhero are PLACEHOLDERS: replace them with real registry ids from your modpack (use the in-game editor's registry browser to find them). On a pack without those mods this example shows the 'missing mod' behaviour instead.",
+  "authors": ["Quest Journal"]
+}

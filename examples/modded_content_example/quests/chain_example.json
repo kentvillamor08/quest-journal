@@ -1,0 +1,16 @@
+// A quest chain: intro -> artifact -> final boss. Prerequisites are quest ids; cycles are detected and reported.
+{
+  "schema_version": 1,
+  "id": "superhero:final_boss",
+  "title": "The Final Confrontation",
+  "short_description": "Needs both earlier quests.",
+  "category": "boss_quests",
+  "acceptance": "manual",
+  "prerequisites": ["superhero:recover_the_artifact", "superhero:intro"],
+  "prerequisite_mode": "all",
+  "objectives": [
+    { "id": "boss", "type": "kill_entity", "target": "examplealiens:hive_queen", "count": 1 }
+  ],
+  "rewards": [ { "id": "suit", "type": "custom", "provider": "superhero:unlock_suit", "label": "Unlocks the Hero Suit",
+                 "data": { "suit": "guardian" } } ]   // "custom" rewards are handled by an optional integration (QuestJournalApi)
+}

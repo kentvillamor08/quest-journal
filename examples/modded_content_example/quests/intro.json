@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "superhero:intro",
+  "title": "A New Hero",
+  "short_description": "Vanilla-only starter (works everywhere).",
+  "category": "main_story",
+  "acceptance": "auto",
+  "objectives": [ { "id": "wood", "type": "obtain_item", "target": "minecraft:oak_log", "count": 1 } ],
+  "rewards": [ { "id": "xp", "type": "experience", "amount": 5, "unit": "points" } ]
+}

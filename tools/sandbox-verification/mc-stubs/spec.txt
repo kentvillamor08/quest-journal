@@ -1,0 +1,381 @@
+# ---------------- brigadier / logging / misc libraries
+@ com.mojang.logging.LogUtils | final class LogUtils
+public static native org.slf4j.Logger getLogger();
+@ org.slf4j.Logger | interface Logger
+void info(String s, Object... a);
+void warn(String s, Object... a);
+void error(String s, Object... a);
+@ com.mojang.authlib.GameProfile | class GameProfile
+public native String getName();
+@ org.apache.commons.lang3.tuple.Pair | class Pair<L, R>
+public native L getLeft();
+public native R getRight();
+@ org.lwjgl.glfw.GLFW | final class GLFW
+public static final int GLFW_KEY_J = 74, GLFW_KEY_ESCAPE = 256, GLFW_KEY_UP = 265, GLFW_KEY_DOWN = 264;
+@ it.unimi.dsi.fastutil.booleans.BooleanConsumer | interface BooleanConsumer
+void accept(boolean b);
+@ com.mojang.blaze3d.platform.InputConstants | class InputConstants
+public enum Type { KEYSYM, SCANCODE, MOUSE }
+@ com.mojang.brigadier.Command | interface Command<S>
+int run(com.mojang.brigadier.context.CommandContext<S> c) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+@ com.mojang.brigadier.context.CommandContext | class CommandContext<S>
+public native S getSource();
+@ com.mojang.brigadier.exceptions.CommandSyntaxException | class CommandSyntaxException extends Exception
+@ com.mojang.brigadier.CommandDispatcher | class CommandDispatcher<S>
+public native com.mojang.brigadier.tree.LiteralCommandNode<S> register(com.mojang.brigadier.builder.LiteralArgumentBuilder<S> b);
+public native int execute(String input, S source) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+@ com.mojang.brigadier.tree.LiteralCommandNode | class LiteralCommandNode<S>
+@ com.mojang.brigadier.builder.ArgumentBuilder | abstract class ArgumentBuilder<S, T extends ArgumentBuilder<S, T>>
+public native T then(ArgumentBuilder<S, ?> a);
+public native T executes(com.mojang.brigadier.Command<S> c);
+public native T requires(Predicate<S> r);
+@ com.mojang.brigadier.builder.LiteralArgumentBuilder | class LiteralArgumentBuilder<S> extends ArgumentBuilder<S, LiteralArgumentBuilder<S>>
+@ com.mojang.brigadier.builder.RequiredArgumentBuilder | class RequiredArgumentBuilder<S, T> extends ArgumentBuilder<S, RequiredArgumentBuilder<S, T>>
+public native RequiredArgumentBuilder<S, T> suggests(com.mojang.brigadier.suggestion.SuggestionProvider<S> p);
+@ com.mojang.brigadier.arguments.ArgumentType | interface ArgumentType<T>
+@ com.mojang.brigadier.arguments.StringArgumentType | class StringArgumentType implements ArgumentType<String>
+public static native StringArgumentType word();
+public static native StringArgumentType string();
+public static native StringArgumentType greedyString();
+public static native String getString(com.mojang.brigadier.context.CommandContext<?> c, String name);
+@ com.mojang.brigadier.suggestion.Suggestions | class Suggestions
+@ com.mojang.brigadier.suggestion.SuggestionsBuilder | class SuggestionsBuilder
+@ com.mojang.brigadier.suggestion.SuggestionProvider | interface SuggestionProvider<S>
+CompletableFuture<Suggestions> getSuggestions(com.mojang.brigadier.context.CommandContext<S> c, SuggestionsBuilder b) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+# ---------------- minecraft core
+@ net.minecraft.ChatFormatting | enum ChatFormatting
+BOLD
+@ net.minecraft.Util | class Util
+public static native long getMillis();
+@ net.minecraft.core.BlockPos | class BlockPos
+public native long asLong();
+@ net.minecraft.core.Registry | interface Registry<T>
+Set<net.minecraft.resources.ResourceLocation> keySet();
+@ net.minecraft.core.RegistryAccess | interface RegistryAccess
+<E> Registry<E> registryOrThrow(net.minecraft.resources.ResourceKey<? extends Registry<? extends E>> k);
+@ net.minecraft.core.registries.Registries | class Registries
+public static final net.minecraft.resources.ResourceKey<net.minecraft.core.Registry<net.minecraft.world.level.dimension.LevelStem>> LEVEL_STEM = null;
+@ net.minecraft.world.level.dimension.LevelStem | class LevelStem
+@ net.minecraft.nbt.CompoundTag | class CompoundTag
+@ net.minecraft.nbt.TagParser | class TagParser
+public static native CompoundTag parseTag(String s) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+@ net.minecraft.network.FriendlyByteBuf | class FriendlyByteBuf
+public native FriendlyByteBuf writeByte(int i);
+public native FriendlyByteBuf writeVarInt(int i);
+public native FriendlyByteBuf writeByteArray(byte[] b);
+public native byte readByte();
+public native int readVarInt();
+public native byte[] readByteArray(int max);
+@ net.minecraft.network.chat.FormattedText | interface FormattedText
+static FormattedText of(String s) { return null; }
+@ net.minecraft.network.chat.Component | interface Component extends FormattedText
+static MutableComponent literal(String s) { return null; }
+String getString();
+@ net.minecraft.network.chat.MutableComponent | interface MutableComponent extends Component
+MutableComponent withStyle(net.minecraft.ChatFormatting f);
+@ net.minecraft.util.FormattedCharSequence | interface FormattedCharSequence
+FormattedCharSequence EMPTY = null;
+@ net.minecraft.util.Mth | class Mth
+public static native float clamp(float v, float min, float max);
+public static native int clamp(int v, int min, int max);
+@ net.minecraft.resources.ResourceKey | class ResourceKey<T>
+public native ResourceLocation location();
+@ net.minecraft.resources.ResourceLocation | class ResourceLocation
+public ResourceLocation(String ns, String path) {}
+public ResourceLocation(String full) {}
+public static native ResourceLocation tryParse(String s);
+public native String getNamespace();
+public native String getPath();
+@ net.minecraft.commands.CommandSourceStack | class CommandSourceStack
+public native net.minecraft.world.entity.Entity getEntity();
+public native boolean hasPermission(int level);
+public native void sendSuccess(Supplier<net.minecraft.network.chat.Component> s, boolean b);
+public native void sendFailure(net.minecraft.network.chat.Component c);
+public native net.minecraft.server.level.ServerPlayer getPlayerOrException() throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+public native CommandSourceStack withPermission(int level);
+public native CommandSourceStack withSuppressedOutput();
+public native String getTextName();
+@ net.minecraft.commands.Commands | class Commands
+public static native com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> literal(String s);
+public static native <T> com.mojang.brigadier.builder.RequiredArgumentBuilder<CommandSourceStack, T> argument(String n, com.mojang.brigadier.arguments.ArgumentType<T> t);
+public native com.mojang.brigadier.CommandDispatcher<CommandSourceStack> getDispatcher();
+@ net.minecraft.commands.SharedSuggestionProvider | interface SharedSuggestionProvider
+static CompletableFuture<com.mojang.brigadier.suggestion.Suggestions> suggest(Iterable<String> s, com.mojang.brigadier.suggestion.SuggestionsBuilder b) { return null; }
+@ net.minecraft.commands.arguments.EntitySelector | class EntitySelector
+@ net.minecraft.commands.arguments.EntityArgument | class EntityArgument implements com.mojang.brigadier.arguments.ArgumentType<EntitySelector>
+public static native EntityArgument player();
+public static native net.minecraft.server.level.ServerPlayer getPlayer(com.mojang.brigadier.context.CommandContext<CommandSourceStack> c, String n) throws com.mojang.brigadier.exceptions.CommandSyntaxException;
+@ net.minecraft.world.level.storage.LevelResource | class LevelResource
+public static final LevelResource ROOT = null;
+@ net.minecraft.server.players.PlayerList | class PlayerList
+public native net.minecraft.server.level.ServerPlayer getPlayer(UUID id);
+@ net.minecraft.server.MinecraftServer | abstract class MinecraftServer implements Executor
+public native Set<net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level>> levelKeys();
+public native net.minecraft.core.RegistryAccess registryAccess();
+public native net.minecraft.server.players.PlayerList getPlayerList();
+public native Path getWorldPath(net.minecraft.world.level.storage.LevelResource r);
+public native net.minecraft.commands.Commands getCommands();
+public native int getTickCount();
+public native boolean isSingleplayerOwner(com.mojang.authlib.GameProfile p);
+public native void execute(Runnable r);
+@ net.minecraft.world.InteractionHand | enum InteractionHand
+MAIN_HAND, OFF_HAND
+@ net.minecraft.world.entity.EntityType | class EntityType<T>
+public native net.minecraft.network.chat.Component getDescription();
+@ net.minecraft.world.entity.Entity | class Entity
+public native UUID getUUID();
+public native net.minecraft.network.chat.Component getName();
+public native net.minecraft.world.level.Level level();
+public native net.minecraft.server.MinecraftServer getServer();
+public native double distanceToSqr(double x, double y, double z);
+public native net.minecraft.commands.CommandSourceStack createCommandSourceStack();
+public native EntityType<?> getType();
+public native boolean isSpectator();
+@ net.minecraft.world.entity.LivingEntity | class LivingEntity extends Entity
+public native LivingEntity getKillCredit();
+@ net.minecraft.world.entity.player.Inventory | class Inventory
+public native int getContainerSize();
+public native net.minecraft.world.item.ItemStack getItem(int i);
+public native void setItem(int i, net.minecraft.world.item.ItemStack s);
+public native void setChanged();
+public native boolean add(net.minecraft.world.item.ItemStack s);
+@ net.minecraft.world.entity.player.Player | class Player extends LivingEntity
+public native Inventory getInventory();
+public native boolean isCreative();
+public native com.mojang.authlib.GameProfile getGameProfile();
+public native net.minecraft.world.entity.Entity drop(net.minecraft.world.item.ItemStack s, boolean b);
+public native void giveExperiencePoints(int n);
+public native void giveExperienceLevels(int n);
+@ net.minecraft.server.level.ServerPlayer | class ServerPlayer extends net.minecraft.world.entity.player.Player
+public native boolean hasPermissions(int level);
+@ net.minecraftforge.common.util.FakePlayer | class FakePlayer extends net.minecraft.server.level.ServerPlayer
+@ net.minecraft.world.item.ItemLike | interface ItemLike
+Item asItem();
+@ net.minecraft.world.item.Item | class Item implements ItemLike
+public native net.minecraft.network.chat.Component getDescription();
+public native Item asItem();
+@ net.minecraft.world.item.Items | class Items
+public static final Item AIR = null, BARRIER = null;
+@ net.minecraft.world.item.ItemStack | class ItemStack
+public static final ItemStack EMPTY = null;
+public ItemStack(ItemLike i, int n) {}
+public ItemStack(ItemLike i) {}
+public native boolean isEmpty();
+public native int getCount();
+public native void setCount(int n);
+public native void grow(int n);
+public native void shrink(int n);
+public native ItemStack copy();
+public native Item getItem();
+public native boolean is(Item i);
+public native int getMaxStackSize();
+public native void setTag(net.minecraft.nbt.CompoundTag t);
+public static native boolean isSameItemSameTags(ItemStack a, ItemStack b);
+@ net.minecraft.world.level.Level | class Level
+public final boolean isClientSide = false;
+public native net.minecraft.resources.ResourceKey<Level> dimension();
+public native net.minecraft.world.level.block.state.BlockState getBlockState(net.minecraft.core.BlockPos p);
+@ net.minecraft.world.level.block.Block | class Block implements net.minecraft.world.item.ItemLike
+public native net.minecraft.world.item.Item asItem();
+public native net.minecraft.network.chat.MutableComponent getName();
+@ net.minecraft.world.level.block.state.BlockState | class BlockState
+public native Block getBlock();
+@ net.minecraft.world.damagesource.DamageSource | class DamageSource
+public native net.minecraft.world.entity.Entity getEntity();
+# ---------------- minecraft client
+@ net.minecraft.client.KeyMapping | class KeyMapping
+public KeyMapping(String n, net.minecraftforge.client.settings.IKeyConflictContext c, com.mojang.blaze3d.platform.InputConstants.Type t, int k, String cat) {}
+public native boolean consumeClick();
+public native boolean matches(int key, int scan);
+@ net.minecraftforge.client.settings.IKeyConflictContext | interface IKeyConflictContext
+@ net.minecraftforge.client.settings.KeyConflictContext | enum KeyConflictContext implements IKeyConflictContext
+IN_GAME
+@ net.minecraft.client.Minecraft | class Minecraft
+public net.minecraft.client.gui.screens.Screen screen;
+public net.minecraft.world.entity.Entity player;
+public net.minecraft.client.gui.Font font;
+public static native Minecraft getInstance();
+public native void setScreen(net.minecraft.client.gui.screens.Screen s);
+public native net.minecraft.client.gui.components.toasts.ToastComponent getToasts();
+@ net.minecraft.client.gui.Font | class Font
+public native int width(String s);
+public native String plainSubstrByWidth(String s, int w);
+public native List<net.minecraft.util.FormattedCharSequence> split(net.minecraft.network.chat.FormattedText t, int w);
+@ net.minecraft.client.gui.GuiGraphics | class GuiGraphics
+public native void fill(int a, int b, int c, int d, int color);
+public native int drawString(Font f, String s, int x, int y, int color, boolean shadow);
+public native int drawString(Font f, net.minecraft.network.chat.Component s, int x, int y, int color, boolean shadow);
+public native int drawString(Font f, net.minecraft.util.FormattedCharSequence s, int x, int y, int color, boolean shadow);
+public native void enableScissor(int a, int b, int c, int d);
+public native void disableScissor();
+public native void renderItem(net.minecraft.world.item.ItemStack s, int x, int y);
+public native void renderItemDecorations(Font f, net.minecraft.world.item.ItemStack s, int x, int y);
+public native void renderTooltip(Font f, net.minecraft.world.item.ItemStack s, int x, int y);
+public native void renderTooltip(Font f, net.minecraft.network.chat.Component s, int x, int y);
+@ net.minecraft.client.gui.components.events.GuiEventListener | interface GuiEventListener
+default boolean mouseClicked(double x, double y, int b) { return false; }
+default boolean mouseReleased(double x, double y, int b) { return false; }
+default boolean mouseDragged(double x, double y, int b, double dx, double dy) { return false; }
+default boolean mouseScrolled(double x, double y, double d) { return false; }
+default boolean keyPressed(int k, int s, int m) { return false; }
+@ net.minecraft.client.gui.components.Renderable | interface Renderable
+void render(net.minecraft.client.gui.GuiGraphics g, int mx, int my, float pt);
+@ net.minecraft.client.gui.narration.NarratableEntry | interface NarratableEntry
+@ net.minecraft.client.gui.components.AbstractWidget | abstract class AbstractWidget implements net.minecraft.client.gui.components.events.GuiEventListener, Renderable, net.minecraft.client.gui.narration.NarratableEntry
+public boolean visible = true;
+public boolean active = true;
+public native void setX(int x);
+public native void setY(int y);
+public native void setWidth(int w);
+public native void setFocused(boolean f);
+public native boolean isFocused();
+public void render(net.minecraft.client.gui.GuiGraphics g, int mx, int my, float pt) {}
+@ net.minecraft.client.gui.components.Button | class Button extends AbstractWidget
+public interface OnPress { void onPress(Button b); }
+public static class Builder { public native Builder bounds(int x, int y, int w, int h); public native Button build(); }
+public static native Builder builder(net.minecraft.network.chat.Component c, OnPress p);
+@ net.minecraft.client.gui.components.EditBox | class EditBox extends AbstractWidget
+public EditBox(net.minecraft.client.gui.Font f, int x, int y, int w, int h, net.minecraft.network.chat.Component c) {}
+public native void setMaxLength(int n);
+public native void setValue(String s);
+public native String getValue();
+public native void setResponder(Consumer<String> c);
+public native void setHint(net.minecraft.network.chat.Component c);
+public native void setFilter(Predicate<String> p);
+public native void tick();
+@ net.minecraft.client.gui.components.MultiLineEditBox | class MultiLineEditBox extends AbstractWidget
+public MultiLineEditBox(net.minecraft.client.gui.Font f, int x, int y, int w, int h, net.minecraft.network.chat.Component a, net.minecraft.network.chat.Component b) {}
+public native void setCharacterLimit(int n);
+public native void setValue(String s);
+public native String getValue();
+public native void setValueListener(Consumer<String> c);
+@ net.minecraft.client.gui.components.toasts.Toast | interface Toast
+enum Visibility { SHOW, HIDE }
+Visibility render(net.minecraft.client.gui.GuiGraphics g, ToastComponent c, long t);
+default Object getToken() { return null; }
+default int width() { return 160; }
+default int height() { return 32; }
+@ net.minecraft.client.gui.components.toasts.ToastComponent | class ToastComponent
+public native <T extends Toast> T getToast(Class<? extends T> c, Object token);
+public native void addToast(Toast t);
+@ net.minecraft.client.gui.screens.Screen | abstract class Screen implements net.minecraft.client.gui.components.events.GuiEventListener, net.minecraft.client.gui.components.Renderable
+protected net.minecraft.client.Minecraft minecraft;
+protected net.minecraft.client.gui.Font font;
+public int width, height;
+protected Screen(net.minecraft.network.chat.Component t) {}
+protected void init() {}
+public void render(net.minecraft.client.gui.GuiGraphics g, int mx, int my, float pt) {}
+public void tick() {}
+public void onClose() {}
+public boolean isPauseScreen() { return true; }
+protected native <T extends net.minecraft.client.gui.components.events.GuiEventListener & net.minecraft.client.gui.components.Renderable & net.minecraft.client.gui.narration.NarratableEntry> T addRenderableWidget(T w);
+protected native <T extends net.minecraft.client.gui.components.events.GuiEventListener & net.minecraft.client.gui.narration.NarratableEntry> T addWidget(T w);
+protected native void clearWidgets();
+protected native void setInitialFocus(net.minecraft.client.gui.components.events.GuiEventListener l);
+@ net.minecraft.client.gui.screens.ConfirmScreen | class ConfirmScreen extends Screen
+public ConfirmScreen(it.unimi.dsi.fastutil.booleans.BooleanConsumer c, net.minecraft.network.chat.Component a, net.minecraft.network.chat.Component b) { super(a); }
+# ---------------- forge
+@ net.minecraftforge.api.distmarker.Dist | enum Dist
+CLIENT, DEDICATED_SERVER
+@ net.minecraftforge.fml.common.Mod | @interface Mod
+String value() default "";
+@interface EventBusSubscriber { String modid() default ""; Bus bus() default Bus.FORGE; net.minecraftforge.api.distmarker.Dist[] value() default {}; enum Bus { FORGE, MOD } }
+@ net.minecraftforge.fml.config.ModConfig | class ModConfig
+public enum Type { CLIENT, COMMON, SERVER }
+@ net.minecraftforge.fml.ModLoadingContext | class ModLoadingContext
+public static native ModLoadingContext get();
+public native void registerConfig(net.minecraftforge.fml.config.ModConfig.Type t, net.minecraftforge.common.IConfigSpec<?> s);
+@ net.minecraftforge.common.IConfigSpec | interface IConfigSpec<T>
+@ net.minecraftforge.fml.ModList | class ModList
+public static native ModList get();
+public native boolean isLoaded(String ns);
+@ net.minecraftforge.fml.loading.FMLPaths | enum FMLPaths
+CONFIGDIR;
+public native Path get();
+@ net.minecraftforge.fml.DistExecutor | class DistExecutor
+public static native void unsafeRunWhenOn(net.minecraftforge.api.distmarker.Dist d, Supplier<Runnable> r);
+@ net.minecraftforge.common.ForgeConfigSpec | class ForgeConfigSpec implements net.minecraftforge.common.IConfigSpec<ForgeConfigSpec>
+public static class ConfigValue<T> { public native T get(); }
+public static class BooleanValue extends ConfigValue<Boolean> { }
+public static class IntValue extends ConfigValue<Integer> { }
+public static class DoubleValue extends ConfigValue<Double> { }
+public static class Builder {
+public native Builder comment(String... c);
+public native Builder push(String p);
+public native Builder pop();
+public native <T> ConfigValue<T> define(String p, T d, Predicate<Object> v);
+public native BooleanValue define(String p, boolean d);
+public native IntValue defineInRange(String p, int d, int min, int max);
+public native DoubleValue defineInRange(String p, double d, double min, double max);
+public native <T> ConfigValue<List<? extends T>> defineListAllowEmpty(String p, List<? extends T> d, Predicate<Object> v);
+public native <T> org.apache.commons.lang3.tuple.Pair<T, ForgeConfigSpec> configure(Function<Builder, T> f);
+}
+@ net.minecraftforge.registries.IForgeRegistry | interface IForgeRegistry<V>
+boolean containsKey(net.minecraft.resources.ResourceLocation k);
+V getValue(net.minecraft.resources.ResourceLocation k);
+net.minecraft.resources.ResourceLocation getKey(V v);
+Set<net.minecraft.resources.ResourceLocation> getKeys();
+@ net.minecraftforge.registries.ForgeRegistries | class ForgeRegistries
+public static final IForgeRegistry<net.minecraft.world.item.Item> ITEMS = null;
+public static final IForgeRegistry<net.minecraft.world.entity.EntityType<?>> ENTITY_TYPES = null;
+public static final IForgeRegistry<net.minecraft.world.level.block.Block> BLOCKS = null;
+@ net.minecraftforge.eventbus.api.Event | class Event
+public enum Result { DENY, DEFAULT, ALLOW }
+public native boolean isCanceled();
+@ net.minecraftforge.eventbus.api.EventPriority | enum EventPriority
+HIGHEST, HIGH, NORMAL, LOW, LOWEST
+@ net.minecraftforge.eventbus.api.SubscribeEvent | @interface SubscribeEvent
+EventPriority priority() default EventPriority.NORMAL;
+boolean receiveCanceled() default false;
+@ net.minecraftforge.event.RegisterCommandsEvent | class RegisterCommandsEvent extends net.minecraftforge.eventbus.api.Event
+public native com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack> getDispatcher();
+@ net.minecraftforge.event.TickEvent | class TickEvent extends net.minecraftforge.eventbus.api.Event
+public enum Phase { START, END }
+public Phase phase;
+public static class ServerTickEvent extends TickEvent { }
+public static class ClientTickEvent extends TickEvent { }
+@ net.minecraftforge.event.entity.living.LivingDeathEvent | class LivingDeathEvent extends net.minecraftforge.eventbus.api.Event
+public native net.minecraft.world.entity.LivingEntity getEntity();
+public native net.minecraft.world.damagesource.DamageSource getSource();
+@ net.minecraftforge.event.entity.player.PlayerEvent | class PlayerEvent extends net.minecraftforge.eventbus.api.Event
+public native net.minecraft.world.entity.player.Player getEntity();
+public static class PlayerLoggedInEvent extends PlayerEvent { }
+public static class PlayerLoggedOutEvent extends PlayerEvent { }
+public static class ItemPickupEvent extends PlayerEvent { public native net.minecraft.world.item.ItemStack getStack(); }
+public static class ItemCraftedEvent extends PlayerEvent { public native net.minecraft.world.item.ItemStack getCrafting(); }
+public static class ItemSmeltedEvent extends PlayerEvent { public native net.minecraft.world.item.ItemStack getSmelting(); }
+public static class PlayerChangedDimensionEvent extends PlayerEvent { public native net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> getTo(); }
+@ net.minecraftforge.event.entity.player.PlayerContainerEvent | class PlayerContainerEvent extends PlayerEvent
+public static class Close extends PlayerContainerEvent { }
+@ net.minecraftforge.event.entity.player.PlayerInteractEvent | class PlayerInteractEvent extends net.minecraftforge.eventbus.api.Event
+public native net.minecraft.world.entity.player.Player getEntity();
+public native net.minecraft.world.InteractionHand getHand();
+public native net.minecraft.core.BlockPos getPos();
+public static class RightClickBlock extends PlayerInteractEvent { public native Result getUseBlock(); }
+@ net.minecraftforge.event.level.BlockEvent | class BlockEvent extends net.minecraftforge.eventbus.api.Event
+public static class BreakEvent extends BlockEvent { public native net.minecraft.world.entity.player.Player getPlayer(); public native net.minecraft.world.level.block.state.BlockState getState(); }
+@ net.minecraftforge.event.server.ServerAboutToStartEvent | class ServerAboutToStartEvent extends net.minecraftforge.eventbus.api.Event
+public native net.minecraft.server.MinecraftServer getServer();
+@ net.minecraftforge.event.server.ServerStoppingEvent | class ServerStoppingEvent extends net.minecraftforge.eventbus.api.Event
+@ net.minecraftforge.client.event.ClientPlayerNetworkEvent | class ClientPlayerNetworkEvent extends net.minecraftforge.eventbus.api.Event
+public static class LoggingOut extends ClientPlayerNetworkEvent { }
+@ net.minecraftforge.client.event.RegisterKeyMappingsEvent | class RegisterKeyMappingsEvent extends net.minecraftforge.eventbus.api.Event
+public native void register(net.minecraft.client.KeyMapping k);
+@ net.minecraftforge.network.NetworkDirection | enum NetworkDirection
+PLAY_TO_CLIENT, PLAY_TO_SERVER;
+public native net.minecraftforge.fml.LogicalSide getReceptionSide();
+@ net.minecraftforge.fml.LogicalSide | enum LogicalSide
+CLIENT, SERVER;
+public native boolean isServer();
+@ net.minecraftforge.network.NetworkEvent | class NetworkEvent
+public static class Context { public native void enqueueWork(Runnable r); public native net.minecraftforge.network.NetworkDirection getDirection(); public native net.minecraft.server.level.ServerPlayer getSender(); public native void setPacketHandled(boolean b); }
+@ net.minecraftforge.network.PacketDistributor | class PacketDistributor<T>
+public static final PacketDistributor<net.minecraft.server.level.ServerPlayer> PLAYER = null;
+public native net.minecraftforge.network.simple.PacketTarget with(Supplier<T> s);
+@ net.minecraftforge.network.simple.PacketTarget | class PacketTarget
+@ net.minecraftforge.network.simple.SimpleChannel | class SimpleChannel
+public native <M> Object registerMessage(int id, Class<M> c, BiConsumer<M, net.minecraft.network.FriendlyByteBuf> enc, Function<net.minecraft.network.FriendlyByteBuf, M> dec, BiConsumer<M, Supplier<net.minecraftforge.network.NetworkEvent.Context>> h);
+public native <M> void send(PacketTarget t, M msg);
+public native <M> void sendToServer(M msg);
+@ net.minecraftforge.network.NetworkRegistry | class NetworkRegistry
+public static native net.minecraftforge.network.simple.SimpleChannel newSimpleChannel(net.minecraft.resources.ResourceLocation n, Supplier<String> v, Predicate<String> c, Predicate<String> s);

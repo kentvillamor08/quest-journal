@@ -1,0 +1,31 @@
+// PLACEHOLDER IDS: "exampleguns:assault_rifle" is NOT a real item. In your pack, open the editor, add an
+// "Obtain item" objective, search for "gun" in the registry browser and select the real firearm; the editor writes its exact id.
+{
+  "schema_version": 1,
+  "id": "superhero:recover_the_artifact",        // stable id: you may rename the title any time without resetting progress
+  "title": "Recover the Artifact",
+  "short_description": "Arm yourself and take the artifact from the hive.",
+  "description": "Intel says the artifact is guarded by a xeno brute deep in the hive world. Get a rifle first.",
+  "category": "boss_quests",
+  "icon": "exampleguns:assault_rifle",
+  "acceptance": "manual",
+  "objective_mode": "sequential",
+  "objectives": [
+    { "id": "get_rifle", "type": "obtain_item",    "target": "exampleguns:assault_rifle", "count": 1,
+      "description": "Obtain an assault rifle" },
+    { "id": "have_ammo", "type": "have_item",      "target": "exampleguns:ammo_box", "count": 2,
+      "description": "Carry 2 ammo boxes" },
+    { "id": "enter_hive", "type": "visit_dimension", "target": "examplealiens:hive_world",
+      "description": "Enter the hive world" },
+    { "id": "kill_brute", "type": "kill_entity",    "target": "examplealiens:xeno_brute", "count": 1,
+      "description": "Defeat the Xeno Brute" },
+    { "id": "break_core", "type": "break_block",    "target": "examplealiens:hive_core", "count": 1,
+      "description": "Destroy the hive core" },
+    { "id": "press_seal", "type": "interact_block", "target": "superhero:vault_console", "count": 1,
+      "description": "Unlock the vault console" }
+  ],
+  "rewards": [
+    { "id": "ammo", "type": "item", "item": "exampleguns:ammo_box", "count": 4 },
+    { "id": "xp",   "type": "experience", "amount": 10, "unit": "levels" }
+  ]
+}

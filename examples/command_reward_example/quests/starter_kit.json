@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "examples_cmd:starter_kit",
+  "title": "Starter Kit",
+  "short_description": "Pull a lever, receive a kit (via a command).",
+  "category": "side_quests",
+  "acceptance": "auto",
+  "objectives": [ { "id": "lever", "type": "interact_block", "target": "minecraft:lever", "count": 1 } ],
+  "rewards": [
+    { "id": "kit", "type": "command",
+      "command": "give {player} minecraft:cooked_beef 8",   // only {player}, {uuid} and {quest} may be used as placeholders
+      "label": "8 cooked beef" }                              // players only ever see this label, never the command
+  ]
+}
