@@ -1,0 +1,5 @@
+package com.questjournal.core.state;
+
+public enum NoticeType {
+    QUEST_AVAILABLE, QUEST_STARTED, OBJECTIVE_PROGRESS, OBJECTIVE_COMPLETE, QUEST_CLAIMABLE, REWARD_CLAIMED
+}
